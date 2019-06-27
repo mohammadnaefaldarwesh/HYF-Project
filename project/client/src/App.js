@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HousesList from './components/housesList';
-import HouseDetails from './components/houseDetails';
-import Home from './components/home';
+import HousesList from './components/HousesList';
+import HouseDetails from './components/HouseDetails';
+import Home from './components/Home';
 import NavBar from './components/NavBar';
 import RenderError from './components/Error';
 import './App.css';

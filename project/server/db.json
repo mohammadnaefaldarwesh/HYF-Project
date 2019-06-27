@@ -1,0 +1,40 @@
+{
+  "houses": [
+    {
+      "id": "111",
+      "owner": "lolo",
+      "rooms": 5,
+      "price": 100000,
+      "country": "Netherlands",
+      "city": "Den Haag",
+      "photo": "https://m.persimmonhomes.com/images/the-rufford_108606.jpg?width=435"
+    },
+    {
+      "id": "752",
+      "owner": "jack",
+      "rooms": 3,
+      "price": 70000,
+      "country": "Netherlands",
+      "city": "Utrecht",
+      "photo": "https://m.persimmonhomes.com/images/the-rockcliff_133414.jpg?width=435"
+    },
+    {
+      "id": "758",
+      "owner": "mike",
+      "rooms": 6,
+      "price": 300000,
+      "country": "Sweden",
+      "city": "Stockholm",
+      "photo": "https://cdn.geekwire.com/wp-content/uploads/2018/05/ISm2ws8xojvwbs1000000000.jpg"
+    },
+    {
+      "id": "123",
+      "owner": "marion",
+      "rooms": 4,
+      "price": 500000,
+      "country": "USA",
+      "city": "Washington",
+      "photo": "http://www.mediajawrealtydata.com/mlsphotos/sanangelorets/53/97453_1009_ashford_dr_san_angelo_tx_76901_1.jpg"
+    }
+  ]
+}

@@ -1,26 +1,29 @@
 import React from 'react';
 
 const Report = props => {
-  const { errors, report, errLoaded } = props.data;
+  const { errors, report, errLoaded, isLoaded } = props.data;
   return (
     <div className="report">
-      {errLoaded ? <div>Error: {errors}</div> : null}
-      <div>report:</div>
-      <div>{report.responseMessage}</div>
-      {report.validHouses.length ? (
-        <pre>>valid houses: {JSON.stringify(report.validHouses[0].rawData, null, 2)}</pre>
-      ) : null}
-      <div className="report">
-        invalid houses :{report.invalidHouses.length}
-        {report.invalidHouses.length ? (
+      {errLoaded ? (
+        <div>Error: {errors}</div>
+      ) : isLoaded ? (
+        <div>
+          <div>report:</div>
+          <div>{report.responseMessage}</div>
+
+          <pre>>valid houses: {JSON.stringify(report.validHouses[0].rawData, null, 2)}</pre>
+
           <div className="report">
-            invalid house:
-            <pre>{JSON.stringify(report.invalidHouses[0].rawData, null, 2)}</pre>
-            errors:
-            <pre>{JSON.stringify(report.invalidHouses[0].errors, null, 2)}</pre>
+            invalid houses :{report.invalidHouses ? report.invalidHouses.length : 0}
+            <div className="report">
+              invalid house:
+              <pre>{JSON.stringify(report.invalidHouses.rawData, null, 2)}</pre>
+              errors:
+              <pre>{JSON.stringify(report.invalidHouses.errors, null, 2)}</pre>
+            </div>
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 };

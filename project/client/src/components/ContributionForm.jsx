@@ -22,6 +22,7 @@ class Contribute extends React.Component {
     images: '',
     sold: '',
   };
+
   onSubmit = event => {
     event.preventDefault();
     fetch(`http://localhost:5000/api/houses`, {
@@ -46,83 +47,13 @@ class Contribute extends React.Component {
   };
 
   render() {
-    const {
-      isLoaded,
-      link,
-      market_date,
-      location_country,
-      location_city,
-      location_address,
-      size_living_area,
-      size_rooms,
-      price_value,
-      price_currency,
-      location_coordinates_lat,
-      location_coordinates_lng,
-      description,
-      title,
-      images,
-      sold,
-    } = this.state;
-
-    const inputArray = [
-      'link',
-      'market_date',
-      'location_country',
-      'location_city',
-      'location_address',
-      'size_living_area',
-      'size_rooms',
-      'price_value',
-      'price_currency',
-      'location_coordinates_lat',
-      'location_coordinates_lng',
-      'description',
-      'title',
-      'images',
-      'sold',
-    ];
-
-    const validHouse = `[{
-    "link": ${link},
-    "market_date":${market_date},
-    "location_country": ${location_country},
-    "location_city":${location_city},
-    "location_address":${location_address},
-    "size_living_area":${size_living_area},
-    "size_rooms": ${size_rooms},
-    "price_value":${price_value},
-    "price_currency": ${price_currency},
-    "location_coordinates_lat": ${location_coordinates_lat},
-    "location_coordinates_lng": ${location_coordinates_lng},
-    "description":${description},
-    "title":${title},
-    "images":${images},
-    "sold":${sold}
-    }]`;
+    const { isLoaded, errLoaded } = this.state;
 
     return (
       <div className="all-form">
-        <form className="input-form">
-          {inputArray.map((item, index) => {
-            return (
-              <div className="input-items" key={index}>
-                <label>{item + ':'}</label>
-                <input
-                  key={index}
-                  type="text"
-                  value={eval(item)}
-                  name={item}
-                  placeholder={item}
-                  onChange={this.handleChange}
-                />
-              </div>
-            );
-          })}
-        </form>
+        <form className="input-form" />
         <form className="contribution-form">
           <textarea
-            value={validHouse}
             className="contribution-textarea"
             placeholder="  insert houses info:"
             ref={elem => {
@@ -138,7 +69,7 @@ class Contribute extends React.Component {
             Add house
           </button>
         </form>
-        {isLoaded ? <Report data={this.state} /> : null}
+        {isLoaded || errLoaded ? <Report data={this.state} /> : null}
       </div>
     );
   }

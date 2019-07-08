@@ -7,8 +7,8 @@ class HouseList extends React.Component {
     houses: [],
     loading: true,
     error: null,
-    activePage: 0,
-    perPage: 10,
+    activePage: 1,
+    perPage: 4,
     searchCriteria: {
       size_rooms: '',
       price_min: '0',
@@ -36,7 +36,6 @@ class HouseList extends React.Component {
       .then(houses => {
         this.setState({
           houses,
-          activePage: Math.ceil(houses.length / 10),
           error: null,
           loading: false,
         });
@@ -65,7 +64,6 @@ class HouseList extends React.Component {
       .then(houses => {
         this.setState({
           houses,
-          activePage: Math.ceil(houses.length / 10),
           error: null,
           loading: false,
         });
@@ -92,7 +90,37 @@ class HouseList extends React.Component {
   handlePageChange = pageNumber => {
     const newPage = this.state.searchCriteria;
     newPage.page = pageNumber;
+    if (newPage.page > this.state.houses.length) {
+      pageNumber = Math.ceil(this.state.houses.length / 4);
+    }
     this.setState({ activePage: pageNumber, newPage });
+    const { searchCriteria } = this.state;
+    const queryString = Object.keys(searchCriteria)
+      .reduce((query, field) => {
+        const value = searchCriteria[field];
+        if (value !== null && value !== ' ') {
+          query.push(`${field}=${encodeURI(value)}`);
+        }
+
+        return query;
+      }, [])
+      .join('&');
+    this.props.history.replace(this.props.location.pathname + '?' + queryString);
+    return fetch(`http://localhost:5000/api/houses?${queryString}`)
+      .then(res => res.json())
+      .then(houses => {
+        this.setState({
+          houses,
+          error: null,
+          loading: false,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          error: 'fetching data failed',
+          loading: false,
+        });
+      });
   };
 
   render() {
@@ -214,10 +242,14 @@ class HouseList extends React.Component {
         </div>
         <div className="pagination-bar">
           <Pagination
+            prevPageText="prev"
+            nextPageText="next"
+            firstPageText="first page"
+            lastPageText="last page"
             activePage={activePage}
             itemsCountPerPage={currentPosts.length}
             totalItemsCount={houses.length}
-            pageRangeDisplayed={activePage}
+            pageRangeDisplayed={Math.ceil(houses.length / 5)}
             onChange={this.handlePageChange}
           />
         </div>
